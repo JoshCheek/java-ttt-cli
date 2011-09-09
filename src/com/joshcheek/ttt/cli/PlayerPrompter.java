@@ -13,7 +13,7 @@ import com.joshcheek.ttt.library.Player;
  */
 public class PlayerPrompter {
     public Player prompt(IOInteraction io, Game game, int playerNumber) {
-        if('c' == io.promptForPlayer(game, playerNumber))
+        if('c' == io.promptForPlayer(playerNumber))
             return new ComputerPlayer(game);
         return new HumanPlayer(game, io);
     }

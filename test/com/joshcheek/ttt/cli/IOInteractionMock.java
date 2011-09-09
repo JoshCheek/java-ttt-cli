@@ -11,7 +11,6 @@ import com.joshcheek.ttt.library.Game;
  */
 public class IOInteractionMock implements IOInteraction {
     private boolean gameWasOver = false;
-    private Game gameThatWasPromptedWith;
     private char userResponseToPlayerPrompt='c';
     private boolean[] wasPromptedForPlayer = new boolean[]{false, false};
     private boolean hasBeenAskedToGetPlayerMove = false;
@@ -23,9 +22,8 @@ public class IOInteractionMock implements IOInteraction {
         gameWasOver = game.isOver();
     }
 
-    public char promptForPlayer(Game game, int playerNumber) {
+    public char promptForPlayer(int playerNumber) {
         wasPromptedForPlayer[playerNumber-1] = true;
-        gameThatWasPromptedWith = game;
         return userResponseToPlayerPrompt;
     }
 
@@ -41,10 +39,6 @@ public class IOInteractionMock implements IOInteraction {
 
     public boolean wasPromptedForPlayer(int playerNumber) {
         return wasPromptedForPlayer[playerNumber-1];
-    }
-
-    public Game gameThatWasPromptedWith() {
-        return gameThatWasPromptedWith;
     }
 
     public void stubPlayerPromptResponse(char userResponse) {
