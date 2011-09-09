@@ -29,10 +29,6 @@ public class CLIRetriever {
         return game;
     }
 
-    public Game game() {
-        return game;
-    }
-
     public PlayerPrompter playerPrompter() {
         return playerPrompter;
     }
