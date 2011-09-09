@@ -13,10 +13,6 @@ import static org.junit.Assert.assertTrue;
  * To change this template use File | Settings | File Templates.
  */
 public class TestHelpers {
-    public static IOInteractionMock mockIO() {
-        return new IOInteractionMock();
-    }
-
     public static CLIRetrieverMock mockRetriever() {
         return new CLIRetrieverMock(new PlayerPrompterMock(), new IOInteractionMock(), new Game());
     }

@@ -38,6 +38,6 @@ public class CLITest extends junit.framework.TestCase {
         game = retriever.retrieveGame();
         retriever.mockPlayer1(new PlayerMock(new int[]{1, 2, 3, 9}, game)); // game should end after 1, 2, 3
         retriever.mockPlayer2(new PlayerMock(new int[]{4, 5, 6}, game));    // game should end after 4, 5
-        CLI cli = new CLI(retriever);
+        new CLI(retriever);
     }
 }
