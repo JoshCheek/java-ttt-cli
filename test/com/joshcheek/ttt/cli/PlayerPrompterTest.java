@@ -40,4 +40,12 @@ public class PlayerPrompterTest extends junit.framework.TestCase {
         Player player = prompter.prompt(interaction, game, 1);
         assertTrue(player instanceof HumanPlayer);
     }
+
+    public void testItDefaultsPlayer2ToHumanWhenPlayer1IsComputer() {
+        interaction.stubPlayerPromptResponse('c');
+        prompter.prompt(interaction, game, 1);
+        assertTrue(prompter.prompt(interaction, game, 2) instanceof HumanPlayer);
+        assertTrue(interaction.wasPromptedForPlayer(1));
+        assertFalse(interaction.wasPromptedForPlayer(2));
+    }
 }

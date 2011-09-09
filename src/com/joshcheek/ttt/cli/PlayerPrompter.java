@@ -12,9 +12,19 @@ import com.joshcheek.ttt.library.Player;
  * To change this template use File | Settings | File Templates.
  */
 public class PlayerPrompter {
+    boolean player1WasComputer = false;
+
     public Player prompt(IOInteraction io, Game game, int playerNumber) {
-        if('c' == io.promptForPlayer(playerNumber))
+        if(player1WasComputer) return new HumanPlayer(game, io);
+        if('c' == getPlayerTypeFromUser(io, playerNumber))
             return new ComputerPlayer(game);
         return new HumanPlayer(game, io);
+    }
+
+    private char getPlayerTypeFromUser(IOInteraction io, int playerNumber) {
+        char response = io.promptForPlayer(playerNumber);
+        if('c' == response && playerNumber == 1)
+            player1WasComputer = true;
+        return response;
     }
 }
