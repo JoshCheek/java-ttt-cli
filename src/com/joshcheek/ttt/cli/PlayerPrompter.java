@@ -1,5 +1,6 @@
 package com.joshcheek.ttt.cli;
 
+import com.joshcheek.ttt.library.ComputerPlayer;
 import com.joshcheek.ttt.library.Game;
 import com.joshcheek.ttt.library.Player;
 
@@ -12,6 +13,8 @@ import com.joshcheek.ttt.library.Player;
  */
 public class PlayerPrompter {
     public Player prompt(IOInteraction io, Game game, int playerNumber) {
-        return null;
+        if('c' == io.promptForPlayer(game, playerNumber))
+            return new ComputerPlayer(game);
+        return new HumanPlayer(game);
     }
 }
