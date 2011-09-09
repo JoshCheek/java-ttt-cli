@@ -26,9 +26,9 @@ public class IOInteractionImpl implements IOInteraction {
 
     public void displayResults(Game game) {
         displayBoard(game);
-        if(game.isTie())                out.print("The game ended in a tie.");
-        else if(game.winner() == 1)     out.print("Player 1 won the game!");
-        else if(game.winner() == 2)     out.print("Player 2 won the game!");
+        if(game.isTie())                out.print("The game ended in a tie.\n");
+        else if(game.winner() == 1)     out.print("Player 1 won the game!\n");
+        else if(game.winner() == 2)     out.print("Player 2 won the game!\n");
     }
 
     public char promptForPlayer(int playerNumber) {

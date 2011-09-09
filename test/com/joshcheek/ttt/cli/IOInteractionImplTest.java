@@ -55,6 +55,14 @@ public class IOInteractionImplTest extends junit.framework.TestCase {
         assertContains(output(), "---");
     }
 
+    public void testLastLineOfGameIsNewline() {
+        mockInteraction("");
+        interaction.displayResults(new Game("222110100"));
+        assertEquals('\n',
+                output().charAt( output().length()-1 )
+        );
+    }
+
     public void testItPromptsForPlayer1() {
         mockInteraction("h");
         interaction.promptForPlayer(1);
