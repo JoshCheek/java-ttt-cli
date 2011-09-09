@@ -32,27 +32,19 @@ public class IOInteractionImpl implements IOInteraction {
     }
 
     public char promptForPlayer(int playerNumber) {
-        out.print("Should Player " + playerNumber + " be a human or computer? (h/c) ");
-        String line = in.nextLine();
-        char toReturn = line.toLowerCase().charAt(0);
-        if(toReturn == 'c' || toReturn == 'h')
-            return toReturn;
-        out.println("Invalid input, expected 'c' or 'h', but got '" + toReturn + "'");
+        askPlayerType(playerNumber);
+        char toReturn = getFirstChar();
+        if(validPlayerType(toReturn)) return toReturn;
+        informUserOfInvalidPlayerType(toReturn);
         return promptForPlayer(playerNumber);
     }
 
     public int promptMove(Game game) {
         displayBoard(game);
-        out.print("Where would you like to move? (" + availableMoves(game) + ") ");
+        askUserWhereTheyWantToMove(game);
         String line = in.nextLine();
-        if(line.matches(".*[^1-9].*")) {
-            out.println("Invalid input.");
-            return promptMove(game);
-        }
-        int move = Integer.parseInt(line);
-        if(game.isAvailable(move))
-            return move;
-        out.println("You can't move there.");
+        if(isValidMove(game, line)) return extractMove(line);
+        out.println("Invalid input.");
         return promptMove(game);
     }
 
@@ -78,15 +70,58 @@ public class IOInteractionImpl implements IOInteraction {
     }
 
     private String availableMoves(Game game) {
-        if(game.availableMoves().length == 1)
-            return Integer.toString(game.availableMoves()[0]);
+        if(onlyOneMove(game)) return firstAvailableMove(game);
+        return availableMovesToString(game);
+    }
+
+    private String availableMovesToString(Game game) {
+        int[] availableMoves = game.availableMoves();
         String result = "";
-        int length = game.availableMoves().length;
+        int length = availableMoves.length;
         for(int i=0; i+1<length; ++i) {
-            int move = game.availableMoves()[i];
+            int move = availableMoves[i];
             result += move + ", ";
         }
-        result += "or " + game.availableMoves()[length-1];
+        result += "or " + availableMoves[length-1];
         return result;
     }
+
+    private String firstAvailableMove(Game game) {
+        return Integer.toString(game.availableMoves()[0]);
+    }
+
+    private boolean onlyOneMove(Game game) {
+        return game.availableMoves().length == 1;
+    }
+
+    private char getFirstChar() {
+        String line = in.nextLine();
+        if(line.length() == 0) return 0;
+        return line.toLowerCase().charAt(0);
+    }
+
+    private void informUserOfInvalidPlayerType(char toReturn) {
+        out.println("Invalid input, expected 'c' or 'h', but got '" + toReturn + "'");
+    }
+
+    private boolean validPlayerType(char toReturn) {
+        return toReturn == 'c' || toReturn == 'h';
+    }
+
+    private void askPlayerType(int playerNumber) {
+        out.print("Should Player " + playerNumber + " be a human or computer? (h/c) ");
+    }
+
+    private int extractMove(String line) {
+        return Integer.parseInt(line);
+    }
+
+    private boolean isValidMove(Game game, String line) {
+        return 0 < line.length() && !line.matches(".*[^1-9].*") && game.isAvailable(extractMove(line));
+    }
+
+    private void askUserWhereTheyWantToMove(Game game) {
+        out.print("Where would you like to move? (" + availableMoves(game) + ") ");
+    }
+
 }

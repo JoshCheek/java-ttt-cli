@@ -82,7 +82,7 @@ public class IOInteractionImplTest extends junit.framework.TestCase {
     }
 
     public void testItContinuesPromptingForPlayerUntilItReceivesAnHOrAC() {
-        mockInteraction("x\nc\n");
+        mockInteraction("x\n\nc\n");
         assertEquals('c', interaction.promptForPlayer(1));
         assertContains(output(), "Invalid");
 
@@ -120,11 +120,11 @@ public class IOInteractionImplTest extends junit.framework.TestCase {
     public void testItRepromptsWhenPlayerMoveIsNotAvailable() {
         mockInteraction("1\n2\n3\n4\n");
         assertEquals(3, interaction.promptMove(new Game("110220000")));
-        assertContains(output(), "can't move there");
+        assertContains(output(), "Invalid input");
     }
 
     public void testItDoesntDieWhenItReceivesBadInputWhenPromptingForPlayerMove() {
-        mockInteraction("lkj\n90\n2");
+        mockInteraction("lkj\n\n90\n2");
         assertEquals(2, interaction.promptMove(new Game("000000000")));
     }
 

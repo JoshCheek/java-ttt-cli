@@ -41,6 +41,10 @@ public class CLI {
 
     private void runGame() {
         while(!game.isOver())
-            players[game.turn()-1].takeTurn();
+            currentPlayer().takeTurn();
+    }
+
+    private Player currentPlayer() {
+        return players[game.turn()-1];
     }
 }
