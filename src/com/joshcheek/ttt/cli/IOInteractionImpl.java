@@ -44,7 +44,12 @@ public class IOInteractionImpl implements IOInteraction {
     public int promptMove(Game game) {
         displayBoard(game);
         out.print("Where would you like to move? (" + availableMoves(game) + ") ");
-        int move = Integer.parseInt(in.nextLine());
+        String line = in.nextLine();
+        if(line.matches(".*[^1-9].*")) {
+            out.println("Invalid input.");
+            return promptMove(game);
+        }
+        int move = Integer.parseInt(line);
         if(game.isAvailable(move))
             return move;
         out.println("You can't move there.");

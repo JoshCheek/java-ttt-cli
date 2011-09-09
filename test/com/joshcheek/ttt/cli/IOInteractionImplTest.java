@@ -123,6 +123,11 @@ public class IOInteractionImplTest extends junit.framework.TestCase {
         assertContains(output(), "can't move there");
     }
 
+    public void testItDoesntDieWhenItReceivesBadInputWhenPromptingForPlayerMove() {
+        mockInteraction("lkj\n90\n2");
+        assertEquals(2, interaction.promptMove(new Game("000000000")));
+    }
+
     public void testItDisplaysTheBoardWhenPromptingForMove() {
         mockInteraction("1");
         interaction.promptMove(new Game("010020010"));
