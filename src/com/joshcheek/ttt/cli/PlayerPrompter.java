@@ -15,6 +15,6 @@ public class PlayerPrompter {
     public Player prompt(IOInteraction io, Game game, int playerNumber) {
         if('c' == io.promptForPlayer(game, playerNumber))
             return new ComputerPlayer(game);
-        return new HumanPlayer(game);
+        return new HumanPlayer(game, io);
     }
 }

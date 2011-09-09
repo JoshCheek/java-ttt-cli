@@ -11,11 +11,16 @@ import com.joshcheek.ttt.library.Player;
  * To change this template use File | Settings | File Templates.
  */
 public class HumanPlayer implements Player {
-    public HumanPlayer(Game game) {
-        //To change body of created methods use File | Settings | File Templates.
+    private IOInteraction ioInteraction;
+    private Game game;
+
+    public HumanPlayer(Game game, IOInteraction ioInteraction) {
+        this.ioInteraction = ioInteraction;
+        this.game = game;
     }
 
     public void takeTurn() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        int move = ioInteraction.promptMove(game);
+        game.mark(move);
     }
 }

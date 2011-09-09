@@ -12,4 +12,5 @@ import com.joshcheek.ttt.library.Game;
 public interface IOInteraction {
     public void displayResults(Game game);
     public char promptForPlayer(Game game, int playerNumber);
+    public int promptMove(Game game);
 }

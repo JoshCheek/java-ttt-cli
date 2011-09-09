@@ -14,6 +14,9 @@ public class IOInteractionMock implements IOInteraction {
     private Game gameThatWasPromptedWith;
     private char userResponseToPlayerPrompt='c';
     private boolean[] wasPromptedForPlayer = new boolean[]{false, false};
+    private boolean hasBeenAskedToGetPlayerMove = false;
+    private Game gamePlayerMovedAgainst;
+    private int playerMoveStub = 1;
 
 
     public void displayResults(Game game) {
@@ -24,6 +27,12 @@ public class IOInteractionMock implements IOInteraction {
         wasPromptedForPlayer[playerNumber-1] = true;
         gameThatWasPromptedWith = game;
         return userResponseToPlayerPrompt;
+    }
+
+    public int promptMove(Game game) {
+        hasBeenAskedToGetPlayerMove = true;
+        gamePlayerMovedAgainst = game;
+        return playerMoveStub;
     }
 
     public boolean gameWasOverWhenIDisplayedResults() {
@@ -40,6 +49,18 @@ public class IOInteractionMock implements IOInteraction {
 
     public void stubPlayerPromptResponse(char userResponse) {
         userResponseToPlayerPrompt = userResponse;
+    }
+
+    public boolean hasBeenAskedToGetPlayerMove() {
+        return hasBeenAskedToGetPlayerMove;
+    }
+
+    public Game gamePlayerMovedAgainst() {
+        return gamePlayerMovedAgainst;
+    }
+
+    public void stubPlayerMoveResponse(int playerMoveStub) {
+        this.playerMoveStub = playerMoveStub;
     }
 }
 
